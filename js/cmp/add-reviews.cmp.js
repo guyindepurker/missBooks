@@ -56,7 +56,6 @@ export default {
       bookService.addReview(id,JSON.parse(JSON.stringify(review))).then(()=>{
         eventBus.$emit('show-msg',{txt: 'The Review Added successfully!', type:'success',link:this.book.id})
         this.getEmptyReview()
-        this.$emit('addReview')
       })
     },
     getEmptyReview(){

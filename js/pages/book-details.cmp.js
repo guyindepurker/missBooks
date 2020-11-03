@@ -17,7 +17,7 @@ export default {
       <h4><span class="title-details">published:</span>{{published}}</h4>
       <long-text :txt="book.description"></long-text>
       <show-reviews :book="book"></show-reviews>
-      <add-reviews @addReview="loadBook" :book="book"> </add-reviews>
+      <add-reviews  :book="book"> </add-reviews>
       <button @click="goBack" class="btn-close mr-5">Go Back</button>
   </section>
     `,
@@ -31,7 +31,6 @@ export default {
       this.$router.push('/books')
     },
     loadBook() {
-      console.log('adddd meeee');
       const id = this.$route.params.bookId
       bookService.getBookById(id)
         .then(book => this.book = book)
