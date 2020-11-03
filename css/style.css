@@ -277,3 +277,6 @@ strong{
   color: rgb(201, 185, 93);
   font-weight: bolder;
 }
+.add-book {
+  height: 100vh;
+}

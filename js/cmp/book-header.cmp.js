@@ -7,6 +7,7 @@ export default {
             <ul class="nav-main flex">
             <li><router-link to="/" exact>Home</router-link></li>
             <li><router-link to="/books" exact>Book App</router-link> </li>
+            <li><router-link to="/books/add" >Add Book</router-link> </li>
             <li><router-link to="/about" >About Us</router-link> </li>
             </ul>
         </nav>
