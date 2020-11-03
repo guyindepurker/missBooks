@@ -2,7 +2,7 @@ import { bookService } from "../service/book-service.js";
 import { eventBus } from "../service/event-bus-service.js";
 
 export default {
-  props: ["book"],
+  props: ["reviews"],
   template: `
     <section v-show="reviews.length" class="show-reviews mr-5">
         <h2>Reviews</h2>
@@ -20,7 +20,7 @@ export default {
     `,
   data() {
     return {
-      reviews: null,
+      reviews: this.reviews,
     };
   },
   methods: {
@@ -36,6 +36,7 @@ export default {
     }
   },
   created() {
+    this.$emit('reviews')
     this.reviews = this.book.reviews
   },
 };

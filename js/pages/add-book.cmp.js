@@ -28,7 +28,6 @@ export default {
     data(){
         return {
             inputSearch:'',
-            showList:false,
             bookResults:null,
         }
     },
@@ -38,7 +37,7 @@ export default {
             .then(books=>{
                const newBooks = bookService.convertBooks(books)
                 this.bookResults = newBooks;
-                this.showList=true;
+                
             } 
              )
         },
