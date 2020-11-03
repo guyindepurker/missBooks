@@ -8,6 +8,9 @@ export const bookService = {
   getBookById,
   addReview,
   removeReview,
+  getNextBookById,
+  getPrevBookById,
+
 };
 
 function getBooks() {
@@ -414,3 +417,21 @@ function removeReview(bookId,reviewId){
    utilService.storeToStorage(BOOKSDB,gBooks)
   }))
 }
+function getNextBookById(id){
+ const newId = getBooks().then((books)=>{
+    const idx = books.findIndex(book=> book.id === id);
+    const nextBookIdx = idx + 1;
+    const nextBookId = books[nextBookIdx].id
+    return nextBookId;
+  })
+  return Promise.resolve(newId)
+}
+ function getPrevBookById(id){
+   const prevId = getBooks().then((books)=>{
+    const cuurIdx = books.findIndex(book=> book.id === id)
+    const prevBookIdx = cuurIdx - 1
+    const prevBookId = books[prevBookIdx].id
+    return prevBookId;
+   })
+   return  Promise.resolve(prevId);
+ } 

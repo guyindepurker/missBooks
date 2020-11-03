@@ -3,6 +3,7 @@ import { bookService } from "../service/book-service.js";
 import addReviews from '../cmp/add-reviews.cmp.js'
 import showReviews from '../cmp/show-reviews.cmp.js'
 export default {
+  name:'book-details',
   template: `
     <section v-if="book" class="book-details"> 
       <img :src="imgUrl" class="img-book-details"/> 
@@ -20,8 +21,8 @@ export default {
       <add-reviews  :book="book"> </add-reviews>
       <button @click="goBack" class="btn-close mr-5">Go Back</button>
       <div class="container flex space-between">
-        <button><i class="fas fa-long-arrow-alt-left"></i>Previous Book</button>
-        <button>Next Book <i class="fas fa-long-arrow-alt-right"></i></button>
+        <button @click="goPrevBook"><i class="fas fa-long-arrow-alt-left"></i>Previous Book</button>
+        <button @click="goNextBook">Next Book <i class="fas fa-long-arrow-alt-right"></i></button>
       </div>
   </section>
     `,
@@ -38,6 +39,16 @@ export default {
       const id = this.$route.params.bookId
       bookService.getBookById(id)
         .then(book => this.book = book)
+    },
+    goNextBook(){
+      bookService.getNextBookById(this.book.id)
+      .then(id=>this.$router.push(id))
+      .catch(err=>console.log('err',err))
+    },
+    goPrevBook(){
+      bookService.getPrevBookById(this.book.id)
+      .then(id=>this.$router.push(id))
+      .catch(err=>console.log('err',err))
     }
   },
   computed: {
@@ -102,14 +113,9 @@ export default {
   },
   created() {
     this.loadBook();
-    // setTimeout(() => {
-    //   this.$router.push('9laHCEdSpFy');
-    // }, 4000)
   },
   watch: {
-    // whenever question changes, this function will run
     '$route.params.bookId'() {
-      // console.log(`ROUTE CHANGED FROM ${from} TO ${to}`)
       this.loadBook();
     }
   },
