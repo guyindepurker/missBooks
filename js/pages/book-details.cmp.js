@@ -6,7 +6,7 @@ export default {
   template: `
     <section v-if="book" class="book-details"> 
       <img :src="imgUrl" class="img-book-details"/> 
-      <img v-if="isSale" src="../img/sale.png" class="sale-desc-img"> 
+      <img v-if="isSale" src="img/sale.png" class="sale-desc-img"> 
       <h3 class="mr-5"><span class="title-details">title:</span>{{book.title}}</h3>
       <h3><span class="title-details">subtitle:</span>{{book.subtitle}}</h3>
       <h4><span class="title-details">price:</span><span :class="priceClass">{{price}}</span></h4>
