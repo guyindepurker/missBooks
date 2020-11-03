@@ -1,6 +1,8 @@
 import { utilService } from "./util-service.js";
 const BOOKSDB = "booksDB";
+const BOOKSGOOGLE = "GOOGLEDB";
 var gBooks = _createBooks();
+
 
 
 export const bookService = {
@@ -10,6 +12,9 @@ export const bookService = {
   removeReview,
   getNextBookById,
   getPrevBookById,
+  searchBook,
+  convertBooks,
+  addGoogleBook,
 
 };
 
@@ -420,6 +425,7 @@ function removeReview(bookId,reviewId){
 function getNextBookById(id){
  const newId = getBooks().then((books)=>{
     const idx = books.findIndex(book=> book.id === id);
+    if(idx === books.length) return Promise.reject('erorrrrrrr')
     const nextBookIdx = idx + 1;
     const nextBookId = books[nextBookIdx].id
     return nextBookId;
@@ -427,11 +433,61 @@ function getNextBookById(id){
   return Promise.resolve(newId)
 }
  function getPrevBookById(id){
+   console.log('id:', id)
    const prevId = getBooks().then((books)=>{
     const cuurIdx = books.findIndex(book=> book.id === id)
+    console.log('cuurIdx:', cuurIdx)
+    if(cuurIdx === 0) return Promise.reject('erorrrrrrr')
     const prevBookIdx = cuurIdx - 1
     const prevBookId = books[prevBookIdx].id
     return prevBookId;
    })
    return  Promise.resolve(prevId);
  } 
+
+ function searchBook(value){
+      return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${value}&filter=paid-ebooks`)
+      .then(res=> res.data)
+      .then(data=>{
+        return data.items;
+      })
+ }
+
+function convertBooks(books){
+  const newBooks = books.map(book=>{
+    const Vinfo = book.volumeInfo
+    var id =book.id;
+    var title = Vinfo.title;
+    var subtitle = (Vinfo.subtitle) ? Vinfo.subtitle : 'Unkown';
+    var authors =(Vinfo.authors) ? Vinfo.authors : ['Unkown'];
+    var publishedDate =Vinfo.publishedDate.substring(0,4);
+    var description =(Vinfo.description) ? Vinfo.description :'No have';
+    var pageCount =(Vinfo.pageCount) ? Vinfo.pageCount : 150
+    var categories = (Vinfo.categories) ? Vinfo.categories : ['Fantasy','Pshco'];
+    var thumbnail = Vinfo.imageLinks.smallThumbnail;
+    var language = (Vinfo.language) ? Vinfo.language : 'en';
+    var listPrice ={
+      amount:utilService.getRandomPrice() ,
+      currencyCode:utilService.getRandomCurrency() ,
+      isOnSale:utilService.getRandomSale() ,
+    }
+    var reviews = []
+    
+    return{id,title,subtitle,authors,publishedDate,description,pageCount,categories,thumbnail,language,listPrice,reviews}
+  })
+  console.log('newBooks:', newBooks)
+  return newBooks;
+}
+function addGoogleBook(googleBook){
+  getBooks().then(books=>{
+    const isHave = gBooks.some(currBook=> currBook.id === googleBook.id);
+    if(isHave) return alert('kaka')
+      books.push(googleBook)
+      console.log('books:', books)
+      utilService.storeToStorage(BOOKSDB, books)
+    }
+    )
+    return Promise.resolve()
+}
+
+

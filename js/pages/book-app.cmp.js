@@ -5,13 +5,14 @@ export default  {
   template: `
     <section class="book-app">
         <book-filter  @filtered="setFilter"></book-filter>
-        <book-list :books="booksToShow"></book-list>
+        <book-list :books="booksToShow" :title="title"></book-list>
     </section>
     `,
   data() {
     return {
       filterBy: null,
       books: null,
+      title:'Our library'
   
     };
   },

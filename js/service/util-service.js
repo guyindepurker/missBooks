@@ -1,7 +1,10 @@
 export const utilService = {
     storeToStorage,
     loadFromStorage,
-    makeId
+    makeId,
+    getRandomSale,
+    getRandomCurrency,
+    getRandomPrice
 }
 
 function storeToStorage(key, value) {
@@ -20,4 +23,26 @@ function makeId(length = 5) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return txt;
+}
+
+function getRandomSale(){
+    const randomBolen = [true,false,true,false,true,false,false]
+    const randomNum = getRandomInt(0, 6)
+    return randomBolen[randomNum]
+}
+function getRandomCurrency(){
+    const randomCurr = ['ILS','EUR','USD']
+    const randomNum = getRandomInt(0, 2)
+    return randomCurr[randomNum]
+}
+function getRandomPrice(){
+    const randomCurr = [100,200,300,50,60,90,150,89,79]
+     const randomNum = getRandomInt(0, 8)
+    return randomCurr[randomNum]
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
