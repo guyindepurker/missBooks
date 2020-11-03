@@ -273,3 +273,7 @@ strong{
   letter-spacing: 2px;
   border-bottom: 5px solid #fff793;
 }
+.router-link-active {
+  color: rgb(201, 185, 93);
+  font-weight: bolder;
+}
