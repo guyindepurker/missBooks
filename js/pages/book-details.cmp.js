@@ -19,6 +19,10 @@ export default {
       <show-reviews :book="book"></show-reviews>
       <add-reviews  :book="book"> </add-reviews>
       <button @click="goBack" class="btn-close mr-5">Go Back</button>
+      <div class="container flex space-between">
+        <button><i class="fas fa-long-arrow-alt-left"></i>Previous Book</button>
+        <button>Next Book <i class="fas fa-long-arrow-alt-right"></i></button>
+      </div>
   </section>
     `,
   data() {
