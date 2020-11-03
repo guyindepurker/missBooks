@@ -17,7 +17,7 @@ export default {
       <h4><span class="title-details">pages:</span>{{pageCount}}</h4>
       <h4><span class="title-details">published:</span>{{published}}</h4>
       <long-text :txt="book.description"></long-text>
-      <show-reviews @reviews='loadBook' :reviews="book.reviews"></show-reviews>
+      <show-reviews  @reviews='loadBook' :reviews="book.reviews"></show-reviews>
       <add-reviews  :book="book"> </add-reviews>
       <button @click="goBack" class="btn-close mr-5">Go Back</button>
       <div class="container flex space-between">

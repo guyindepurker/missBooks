@@ -4,7 +4,7 @@ import { eventBus } from "../service/event-bus-service.js";
 export default {
   props: ["reviews"],
   template: `
-    <section v-show="reviews.length" class="show-reviews mr-5">
+    <section v-if="reviews" class="show-reviews mr-5">
         <h2>Reviews</h2>
       <div class="flex wrap mr-5 justify-center align-center">
       <div class="rates-container" v-for="review in reviews" :key="review.id">
@@ -18,11 +18,6 @@ export default {
     </div>
     </section>
     `,
-  data() {
-    return {
-      reviews: this.reviews,
-    };
-  },
   methods: {
     removeReview(bookId, reviewId) {
       bookService.removeReview(bookId, reviewId)
@@ -33,10 +28,13 @@ export default {
   computed:{
     reviewsStar(){
       return '🌟'
+    },
+    txtReview(){
+      this.reviews.length
     }
+    
   },
   created() {
     this.$emit('reviews')
-    this.reviews = this.book.reviews
   },
 };
