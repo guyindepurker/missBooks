@@ -1,7 +1,7 @@
 # MissBooks
 A web application written as part of my studies on the bootcamp of  coding academy.
 
-MissBooks- is market-place for Books.
+MissBooks- is market-place for Books written with Vue.js.
 
 ## GitHub Pages
 You can see the app at the following link:
